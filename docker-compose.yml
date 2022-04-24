@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: .
+    image: nodejs
+    container_name: nodejs
+    restart: always
+    networks:
+      - node-app-network
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - nodejs
+    networks:
+      - node-app-network
+  certbot:
+    image: certbot/certbot::arm64v8-latest
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - webserver
+    command: certonly --standalone --email liemly98@gmail.com --preferred-challenges http --agree-tos --no-eff-email -d app1.4app.me
+volumes:
+  certbot-etc:
+  certbot-var:
+networks:
+  node-app-network:
+    driver: bridge  
