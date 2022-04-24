@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     image: nodejs
     container_name: nodejs
+    ports:
+      - "5050:5050"
     restart: always
     networks:
       - node-app-network
