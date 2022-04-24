@@ -24,15 +24,15 @@ services:
       - nodejs
     networks:
       - node-app-network
-  certbot:
-    image: certbot/certbot:arm64v8-latest
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-    depends_on:
-      - webserver
-    command: certonly --standalone --email liemly98@gmail.com --preferred-challenges http --agree-tos --no-eff-email -d app1.4app.me
+  # certbot:
+  #   image: certbot/certbot:arm64v8-latest
+  #   container_name: certbot
+  #   volumes:
+  #     - certbot-etc:/etc/letsencrypt
+  #     - certbot-var:/var/lib/letsencrypt
+  #   depends_on:
+  #     - webserver
+  #   command: certonly --standalone --email liemly98@gmail.com --preferred-challenges http --agree-tos --no-eff-email -d app1.4app.me
 volumes:
   certbot-etc:
   certbot-var:
