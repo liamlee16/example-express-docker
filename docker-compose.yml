@@ -24,7 +24,7 @@ services:
     networks:
       - node-app-network
   certbot:
-    image: certbot/certbot::arm64v8-latest
+    image: certbot/certbot:arm64v8-latest
     container_name: certbot
     volumes:
       - certbot-etc:/etc/letsencrypt
